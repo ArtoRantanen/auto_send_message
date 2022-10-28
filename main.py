@@ -8,6 +8,22 @@ from email.mime.text import MIMEText
 global user
 global passwd
 
+
+def Send_email(user, to, subject, text):
+    em = EmailMessage()
+    em['From'] = user
+    em['To'] = to
+    em['Subject'] = subject
+    em.set_content(text)
+
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP_SSL('smtp.yandex.ru', 465, context=context) as smtp:
+        smtp.login(user, passwd)
+        smtp.sendmail(user, to, em.as_string())
+
+
+
 with open("subject_message.txt", encoding='utf-8') as fil:
     subject = fil.read()
 
@@ -25,18 +41,7 @@ mime = 'MIME-Version: 1.0'
 
 
 
-def Send_email(user, to, subject, text):
-    em = EmailMessage()
-    em['From'] = user
-    em['To'] = to
-    em['Subject'] = subject
-    em.set_content(text)
 
-    context = ssl.create_default_context()
-
-    with smtplib.SMTP_SSL('smtp.yandex.ru', 465, context=context) as smtp:
-        smtp.login(user, passwd)
-        smtp.sendmail(user, to, em.as_string())
 
 
 base = pd.read_excel("Pbase.xlsx")
