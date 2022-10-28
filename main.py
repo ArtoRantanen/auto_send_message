@@ -40,10 +40,6 @@ port = 587
 mime = 'MIME-Version: 1.0'
 
 
-
-
-
-
 base = pd.read_excel("Pbase.xlsx")
 i = 0
 
